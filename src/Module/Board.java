@@ -5,6 +5,7 @@ import Control.MoveControl;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Администратор on 30.12.2014.
@@ -19,7 +20,7 @@ public class Board {
     private EnemyLogic logic = new EnemyLogic();
     private Collision collision = new Collision(this);
     private Level level = new Level();
-    //EnemyCoords enemyCoords = new EnemyCoords();
+    private EnemyCords enemyCoords = new EnemyCords();
 
     public static int PLAYER_SLOT;
     public List getGameObjects() {
@@ -95,12 +96,13 @@ public class Board {
     }
 
     public void addTanks() {
-        for (int i = 1; i < 10; i+=3) {
-            ObjectContainer objectContainer =  new ObjectContainer((i + 2)* 48, 0, new Enemy(2, Tank.Type.LIGHT));
-            int enemySlot = tanks.size();
-            objectContainer.vector = MoveControl.Move.BACK.getPosition();
-            if(enemySlot < 4)
+        int enemySlot = tanks.size();
+        if(enemySlot < 4) {
+            for (int i = 0; i < 4 - enemySlot; i++) {
+                ObjectContainer objectContainer =  new ObjectContainer(enemyCoords.getRandomX(), 0, new Enemy(2, Tank.Type.LIGHT));
+                objectContainer.vector = MoveControl.Move.BACK.getPosition();
                 tanks.add(enemySlot, objectContainer);
+            }
         }
     }
 
@@ -248,24 +250,21 @@ public class Board {
         }
     }
 
-    public class EnemyCoords {
-        private int x;
-        private int y;
-        private List<EnemyCoords> coordsList = new ArrayList<EnemyCoords>();
-        EnemyCoords enemyCoords;
-        private EnemyCoords() {
+    public class EnemyCords {
+        private int[] x = new int[3];
+
+        private EnemyCords() {
+            int iter = 0;
             for (int i = 1; i < 10; i += 3) {
-                x = (i + 2) * 48;
-                y = 0;
-                enemyCoords = new EnemyCoords();
-                enemyCoords.x = x;
-                enemyCoords.y = y;
-                coordsList.add(enemyCoords);
+                x[iter] = (i + 2) * 48;
+                iter++;
             }
         }
 
-        public List<EnemyCoords> getCoordsList() {
-            return coordsList;
+        public int getRandomX() {
+            Random random = new Random();
+            int r = random.nextInt(3);
+            return x[r];
         }
     }
 

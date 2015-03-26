@@ -14,10 +14,6 @@ public class Collision {
         this.board = board;
     }
 
-    private void magnit() {
-
-    }
-
     public boolean clash(Board.ObjectContainer objectContainer, List<Board.ObjectContainer> gameObjects, Vector2D vector) {
         Vector2D pos = vector;
         for (int slot = 0; slot < gameObjects.size(); slot++) {

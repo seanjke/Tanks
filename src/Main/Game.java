@@ -35,7 +35,7 @@ public class Game extends Canvas implements Runnable{
     private boolean eagle = true;
     private int result;
     private static State state = State.MAIN_MENU;
-    private static enum State {
+    private enum State {
         INTRO, MAIN_MENU, GAME, END_GAME
     }
 

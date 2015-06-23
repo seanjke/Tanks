@@ -24,6 +24,7 @@ public class SpriteTable {
     public void LoadImage(){
         try {
             BufferedImage bufferedImage = ImageIO.read(this.getClass().getResource(path));
+            System.out.println(this.getClass().getResource(path).getPath());
             int w = bufferedImage.getWidth();
             int h = bufferedImage.getHeight();
             bufferedImage.getRGB(0, 0, w, h, pixels, 0, w);

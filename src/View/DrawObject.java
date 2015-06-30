@@ -38,9 +38,7 @@ public class DrawObject extends Render {
     }
 
     public void draw() {
-       // clearPixels();
-       // tank.pixels = Sprite.rotate(Sprite.playerTank, 90).pixels;
-        //drawImage(tank, 10, 10);
+
     }
 
     public void draw(Board board) {

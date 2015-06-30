@@ -1,6 +1,6 @@
 package View;
 
-import java.awt.*;
+
 import java.awt.Color;
 /**
  * Created by Hank on 13.07.14.

@@ -1,11 +1,7 @@
 package View;
 
 public class Screen {
-	/*
-	 * public static final int MAP_WIDTH = 64; // Must be 2^x public static final int MAP_WIDTH_MASK = MAP_WIDTH - 1;
-	 * 
-	 * public int[] tiles = new int[MAP_WIDTH * MAP_WIDTH]; public int[] colors = new int[MAP_WIDTH * MAP_WIDTH]; public int[] databits = new int[MAP_WIDTH * MAP_WIDTH];
-	 */
+
 	public int xOffset;
 	public int yOffset;
 

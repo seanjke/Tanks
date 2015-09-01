@@ -2,9 +2,7 @@ package Module;
 import java.awt.*;
 import java.util.List;
 
-/**
- * Created by Hank on 06.01.2015.
- */
+
 public class Collision {
     public Rectangle rObs = new Rectangle();
     public Rectangle rTank = new Rectangle();
@@ -15,24 +13,24 @@ public class Collision {
     }
 
     public boolean clash(Board.ObjectContainer objectContainer, List<Board.ObjectContainer> gameObjects, Vector2D vector) {
-        Vector2D pos = vector;
+        //Это просто трешш а не метод. Надо его упростить и добавить обработку столкновение пуль.
         for (int slot = 0; slot < gameObjects.size(); slot++) {
             Board.ObjectContainer gameObject = gameObjects.get(slot);
             if (gameObject.object instanceof Obstacle) {
                 rObs.setBounds(gameObject.x * 48, gameObject.y * 48, 48, 48);
                 if(objectContainer.object instanceof  Bullet) {
-                    rTank.setBounds(objectContainer.x + pos.getX(), objectContainer.y + pos.getY(), 10, 10);
+                    rTank.setBounds(objectContainer.x + vector.getX(), objectContainer.y + vector.getY(), 10, 10);
                     if (rTank.intersects(rObs) & !((Obstacle) gameObject.object).transparent) {
                        if(((Obstacle) gameObject.object).isDestroyable()){
                            gameObjects.remove(slot);
                        }
                         return true;
                     }
-                    if(objectContainer.x + pos.getX() < 0 || objectContainer.x + pos.getX() > 630 || objectContainer.y + pos.getY() < 0 || objectContainer.y + pos.getY() > 470) {
+                    if(objectContainer.x + vector.getX() < 0 || objectContainer.x + vector.getX() > 630 || objectContainer.y + vector.getY() < 0 || objectContainer.y + vector.getY() > 470) {
                         return true;
                     }
                 } else {
-                    rTank.setBounds(objectContainer.x + pos.getX(), objectContainer.y+ pos.getY(), 46, 46);
+                    rTank.setBounds(objectContainer.x + vector.getX(), objectContainer.y+ vector.getY(), 46, 46);
                     if (rTank.intersects(rObs) & !((Obstacle) gameObject.object).transparent) {
                         Rectangle inter = rTank.intersection(rObs);
                         double area  = inter.getHeight() * inter.getWidth();
@@ -70,7 +68,7 @@ public class Collision {
                         }
                         return true;
                     }
-                    if(objectContainer.x + pos.getX() < 0 || objectContainer.x + pos.getX() > 592 || objectContainer.y + pos.getY() < 0 || objectContainer.y + pos.getY() > 432) {
+                    if(objectContainer.x + vector.getX() < 0 || objectContainer.x + vector.getX() > 592 || objectContainer.y + vector.getY() < 0 || objectContainer.y + vector.getY() > 432) {
                         return true;
                     }
                 }
@@ -79,7 +77,7 @@ public class Collision {
                 rObs.setBounds(0,0,0,0);
                 rObs.setBounds(gameObject.x, gameObject.y, 46, 46);
                 if(objectContainer.object instanceof  Bullet) {
-                    rTank.setBounds(objectContainer.x + pos.getX(), objectContainer.y + pos.getY(), 10, 10);
+                    rTank.setBounds(objectContainer.x + vector.getX(), objectContainer.y + vector.getY(), 10, 10);
                     if (rTank.intersects(rObs) & ((Bullet) objectContainer.object).isCanHitEnemy()) {
                         gameObjects.remove(slot);
                         board.playerKillEnemey();
@@ -91,7 +89,7 @@ public class Collision {
                 rObs.setBounds(0,0,0,0);
                 rObs.setBounds(gameObject.x, gameObject.y, 46, 46);
                 if(objectContainer.object instanceof  Bullet) {
-                    rTank.setBounds(objectContainer.x + pos.getX(), objectContainer.y + pos.getY(), 10, 10);
+                    rTank.setBounds(objectContainer.x + vector.getX(), objectContainer.y + vector.getY(), 10, 10);
                     if (rTank.intersects(rObs) & ((Bullet) objectContainer.object).isCanHitPlayer()) {
                         board.playerDied();
                         board.setPlayerOnRespawn();
